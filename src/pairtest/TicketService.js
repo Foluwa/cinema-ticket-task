@@ -9,13 +9,14 @@ const parseIntegerEnv = (key, defaultValue) => {
 }
 
 const TICKET_PRICES = {
-  ADULT: parseIntegerEnv(key, 25),
-  CHILD: parseIntegerEnv(key, 15),
-  INFANT: parseIntegerEnv(key, 0),
+  ADULT: parseIntegerEnv('ADULT_TICKET_PRICE', 25),
+  CHILD: parseIntegerEnv('CHILD_TICKET_PRICE', 15),
+  INFANT: parseIntegerEnv('INFANT_TICKET_PRICE', 0),
 };
 
 
-const MAX_TICKETS = parseIntegerEnv(key, 25);
+// const MAX_TICKETS = parseIntegerEnv(key, 25);
+const MAX_TICKETS = parseIntegerEnv('MAX_TICKETS', 25);
 const ALLOWED_TICKET_TYPES = ['ADULT', 'CHILD', 'INFANT'];
 
 
