@@ -3,7 +3,7 @@ import InvalidPurchaseException from './lib/InvalidPurchaseException.js';
 import TicketPaymentService from '../thirdparty/paymentgateway/TicketPaymentService.js';
 import SeatReservationService from '../thirdparty/seatbooking/SeatReservationService.js';
 
-const parseIntegerEnv = (key, defaultValue) => { 
+const parseIntegerEnv = (key, defaultValue) => {
   const parsed = parseInt(process.env[key], 10);
   return Number.isNaN(parsed) ? defaultValue : parsed;
 }
@@ -35,19 +35,29 @@ export default class TicketService {
   /**
    * Public method to purchase tickets.
    */
-    purchaseTickets(accountId, ...ticketTypeRequests) {
-      this.#validateAccountId(accountId);
-      this.#validateTicketTypeRequests(ticketTypeRequests);
-  
-      const ticketCounts = this.#countTicketsByType(ticketTypeRequests);
-      this.#validatePurchaseRules(ticketCounts);
-  
-      const totalAmount = this.#calculateTotalPrice(ticketCounts);
-      const totalSeats = this.#calculateTotalSeats(ticketCounts);
-  
-      this.#paymentService.makePayment(accountId, totalAmount); 
-      this.#seatService.reserveSeat(accountId, totalSeats);
-    }
+  purchaseTickets(accountId, ...ticketTypeRequests) {
+    this.#validateAccountId(accountId);
+    this.#validateTicketTypeRequests(ticketTypeRequests);
+
+    const ticketCounts = this.#countTicketsByType(ticketTypeRequests);
+    this.#validatePurchaseRules(ticketCounts);
+
+    const totalAmount = this.#calculateTotalPrice(ticketCounts);
+    const totalSeats = this.#calculateTotalSeats(ticketCounts);
+
+    this.#paymentService.makePayment(accountId, totalAmount);
+    this.#seatService.reserveSeat(accountId, totalSeats);
+
+    // Return a confirmation object
+    return {
+      status: 'success',
+      message: 'Tickets purchased successfully',
+      accountId: accountId,
+      totalAmount: totalAmount,
+      totalSeats: totalSeats,
+      ticketCounts: ticketCounts
+    };
+  }
 
   /**
    * Private method to validate account ID.
@@ -73,9 +83,6 @@ export default class TicketService {
       if (!ALLOWED_TICKET_TYPES.includes(request.getTicketType())) {
         throw new InvalidPurchaseException(`Invalid ticket type: ${request.getTicketType()}`);
       }
-      if (request.getNoOfTickets() <= 0) {
-        throw new InvalidPurchaseException('Number of tickets must be a positive integer');
-      }
     });
   }
 
@@ -92,7 +99,6 @@ export default class TicketService {
     ticketTypeRequests.forEach(request => {
       ticketCounts[request.getTicketType()] += request.getNoOfTickets();
     });
-
     return ticketCounts;
   }
 
