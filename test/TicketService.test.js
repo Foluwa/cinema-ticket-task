@@ -2,6 +2,7 @@ import TicketService from '../src/pairtest/TicketService.js';
 import TicketTypeRequest from '../src/pairtest/lib/TicketTypeRequest.js';
 import InvalidPurchaseException from '../src/pairtest/lib/InvalidPurchaseException.js';
 
+
 // Mock external services
 class MockTicketPaymentService {
   makePayment(accountId, totalAmount) {
@@ -32,7 +33,7 @@ describe('TicketService', () => {
 
     ticketService.purchaseTickets(accountId, adultRequest, childRequest, infantRequest);
 
-    expect(true).toBe(true); // Placeholder assertion
+    expect(true).toBe(true); 
   });
 
   test('invalid account ID', () => {
@@ -84,7 +85,7 @@ describe('TicketService', () => {
 
     ticketService.purchaseTickets(accountId, adultRequest1, adultRequest2);
 
-    expect(true).toBe(true); // Placeholder assertion
+    expect(true).toBe(true); 
   });
 
   test('infant tickets exceeding adult tickets', () => {

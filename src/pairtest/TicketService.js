@@ -14,8 +14,6 @@ const TICKET_PRICES = {
   INFANT: parseIntegerEnv('INFANT_TICKET_PRICE', 0),
 };
 
-
-// const MAX_TICKETS = parseIntegerEnv(key, 25);
 const MAX_TICKETS = parseIntegerEnv('MAX_TICKETS', 25);
 const ALLOWED_TICKET_TYPES = ['ADULT', 'CHILD', 'INFANT'];
 
