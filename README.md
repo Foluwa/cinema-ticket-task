@@ -22,7 +22,7 @@
 ## Constraints
 
 - The `TicketService` interface **CANNOT** be modified.
-- The code in the `thirdparty.*` packages **CANNOT** be modified.
+- The code in the `thirdparty` packages **CANNOT** be modified.
 - The `TicketTypeRequest` **MUST** be an immutable object.
 
 ## Assumptions
