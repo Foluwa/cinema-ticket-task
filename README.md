@@ -43,3 +43,16 @@ Provide a working implementation of a `TicketService` that:
 - Calculates the correct amount for the requested tickets and makes a payment request to the `TicketPaymentService`.
 - Calculates the correct number of seats to reserve and makes a seat reservation request to the `SeatReservationService`.
 - Rejects any invalid ticket purchase requests. It is up to you to identify what should be deemed as an invalid purchase request.
+
+## Project setup
+
+- Clone the repo.
+- `cd cinema-ticket-task`
+- Install the dependencies using `npm install`.
+- Run the tests using `npm test`.
+
+## Tech stack used
+
+- Node.js (>= 20)
+- JavaScript
+- Jest 
